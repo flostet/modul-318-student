@@ -32,45 +32,32 @@ namespace ÖVFahrplan
         private void Form1_Load(object sender, EventArgs e)
         {
             txtTime.Text = DateTime.Now.ToString("HH:mm");
+            txtDeparture.Focus();
         }
 
         private void btnSearchConnection_Click(object sender, EventArgs e)
         {
-            if (txtDeparture.Text != String.Empty && txtDestination.Text == string.Empty && txtTime.Text != string.Empty)
+            if (txtDeparture.Text == String.Empty || txtDestination.Text == String.Empty || txtTime.Text == String.Empty)
             {
-                transport = new Transport();
-                verbindungen = transport.GetStationBoard(txtDestination.Text, "");
-                listView1.Clear();
-
-                for (int i = 0; i <= 5; i++)
-                {
-                    ListViewItem item1 = new ListViewItem();
-
-                    string departureTime = verbindungen.Entries[i].Stop.Departure.TimeOfDay + "";
-                    item1.Text = departureTime;
-
-                    string trainNumber = verbindungen.Entries[i].Category + " " + verbindungen.Entries[i].Number;
-                    item1.SubItems.Add(trainNumber);
-
-                    string duration = verbindungen.Entries[i].To;
-                    item1.SubItems.Add(duration);
-
-                    listView1.Items.Add(item1);
-                }
+                MessageBox.Show("Bitte korrekte Daten eingeben.");
             }
-            else if(txtDeparture.Text != String.Empty && txtDestination.Text != String.Empty && txtTime.Text != string.Empty)
+            else
             {
                 transport = new Transport();
                 connections = transport.GetConnections(txtDeparture.Text, txtDestination.Text, datePicker.Text, txtTime.Text);
                 verbindungen = transport.GetStationBoard(txtDeparture.Text, "");
-                listView1.Clear();
 
                 for (int i = 0; i < connections.ConnectionList.Count; i++)
                 {
                     ListViewItem item1 = new ListViewItem();
 
-                    string depatureTime = connections.ConnectionList[i].From.Departure.Remove(0, 11).Remove(5, 8) + " -> " + connections.ConnectionList[i].To.Arrival.Remove(0, 11).Remove(5, 8);
-                    item1.Text = depatureTime;
+                    item1.Text = txtDeparture.Text;
+                    item1.SubItems.Add(txtDestination.Text);
+
+
+                    string depatureTime = connections.ConnectionList[i].From.Departure.Remove(0, 11).Remove(5, 8) +
+                                          " - " + connections.ConnectionList[i].To.Arrival.Remove(0, 11).Remove(5, 8);
+                    item1.SubItems.Add(depatureTime);
 
                     string trainNumber = verbindungen.Entries[1].Category + " " + verbindungen.Entries[i].Number;
                     item1.SubItems.Add(trainNumber);
@@ -80,11 +67,7 @@ namespace ÖVFahrplan
 
                     listView1.Items.Add(item1);
                 }
-            }
-            else
-            {
-                MessageBox.Show("Bitte korrekte Daten eingeben.");
-            }
+            } 
         }
 
         // Bei jeder Änderung im Textfeld wird die Liste mit den Station frisch geladen und 
@@ -96,7 +79,7 @@ namespace ÖVFahrplan
             var stations = transport.GetStations(txtDestination.Text).StationList;
             for (int i = 0; i < stations.Count; i++)
             {
-                txtDeparture.Items.Add(stations[i].Name);
+                txtDestination.Items.Add(stations[i].Name);
             }
         }
 
@@ -110,6 +93,17 @@ namespace ÖVFahrplan
             for (int i = 0; i < stations.Count; i++)
             {
                 txtDeparture.Items.Add(stations[i].Name);
+            }
+        }
+
+        private void cbStation_TextChanged(object sender, EventArgs e)
+        {
+            transport = new Transport();
+
+            var stations = transport.GetStations(cbStation.Text).StationList;
+            for (int i = 0; i < stations.Count; i++)
+            {
+                cbStation.Items.Add(stations[i].Name);
             }
         }
     }
