@@ -237,7 +237,7 @@
             // txtDeparture
             // 
             this.txtDeparture.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.txtDeparture.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txtDeparture.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.txtDeparture.FormattingEnabled = true;
             this.txtDeparture.Location = new System.Drawing.Point(10, 45);
             this.txtDeparture.Name = "txtDeparture";
@@ -248,7 +248,7 @@
             // txtDestination
             // 
             this.txtDestination.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.txtDestination.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txtDestination.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.txtDestination.FormattingEnabled = true;
             this.txtDestination.Location = new System.Drawing.Point(223, 45);
             this.txtDestination.Name = "txtDestination";

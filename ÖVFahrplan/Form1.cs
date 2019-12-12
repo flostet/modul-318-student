@@ -87,38 +87,30 @@ namespace ÖVFahrplan
             }
         }
 
+        // Bei jeder Änderung im Textfeld wird die Liste mit den Station frisch geladen und 
+        // Stationsvorschläge werden in der ComboBox angezeigt (Auto Complete)
         private void txtDestination_TextChanged(object sender, EventArgs e)
         {
-            List<string> liste = new List<string>();
-
-            stations = new Stations();
             transport = new Transport();
 
-            stations = transport.GetStations(txtDeparture.Text);
-
-            foreach (Station station in stations.StationList)
+            var stations = transport.GetStations(txtDestination.Text).StationList;
+            for (int i = 0; i < stations.Count; i++)
             {
-                liste.Add(station.Name);
+                txtDeparture.Items.Add(stations[i].Name);
             }
-
-            txtDeparture.AutoCompleteCustomSource.AddRange(liste.ToArray());
         }
 
+        // Bei jeder Änderung im Textfeld wird die Liste mit den Station frisch geladen und 
+        // Stationsvorschläge werden in der ComboBox angezeigt (Auto Complete)
         private void txtDeparture_TextChanged(object sender, EventArgs e)
         {
-            List<string> liste = new List<string>();
-
-            stations = new Stations();
             transport = new Transport();
 
-            stations = transport.GetStations(txtDeparture.Text);
-
-            foreach (Station station in stations.StationList)
+            var stations = transport.GetStations(txtDeparture.Text).StationList;
+            for (int i = 0; i < stations.Count; i++)
             {
-                liste.Add(station.Name);
+                txtDeparture.Items.Add(stations[i].Name);
             }
-
-            txtDeparture.AutoCompleteCustomSource.AddRange(liste.ToArray());
         }
     }
 }
