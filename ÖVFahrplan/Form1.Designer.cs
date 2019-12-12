@@ -299,6 +299,7 @@
             this.btnShowConnections.TabIndex = 15;
             this.btnShowConnections.Text = "Verbindungen anzeigen";
             this.btnShowConnections.UseVisualStyleBackColor = true;
+            this.btnShowConnections.Click += new System.EventHandler(this.btnShowConnections_Click);
             // 
             // Form1
             // 

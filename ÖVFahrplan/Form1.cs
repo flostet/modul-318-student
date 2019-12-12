@@ -37,6 +37,8 @@ namespace ÖVFahrplan
 
         private void btnSearchConnection_Click(object sender, EventArgs e)
         {
+            listView1.Items.Clear();
+
             if (txtDeparture.Text == String.Empty || txtDestination.Text == String.Empty || txtTime.Text == String.Empty)
             {
                 MessageBox.Show("Bitte korrekte Daten eingeben.");
@@ -74,12 +76,28 @@ namespace ÖVFahrplan
         // Stationsvorschläge werden in der ComboBox angezeigt (Auto Complete)
         private void txtDestination_TextChanged(object sender, EventArgs e)
         {
-            transport = new Transport();
-
-            var stations = transport.GetStations(txtDestination.Text).StationList;
-            for (int i = 0; i < stations.Count; i++)
+            try
             {
-                txtDestination.Items.Add(stations[i].Name);
+                transport = new Transport();
+                txtDestination.DroppedDown = true;
+                Cursor.Current = Cursors.Default;
+
+                for (int i = txtDestination.Items.Count - 1; i >= 0; i--)
+                    txtDestination.Items.RemoveAt(i);
+
+                int count = 0;
+                var stations = transport.GetStations(txtDestination.Text).StationList;
+                for (int i = 0; i < stations.Count; i++)
+                {
+                    txtDestination.Items.Add(stations[i].Name);
+                    count++;
+                }
+
+                int p = txtDestination.Items.Count - count;
+            }
+            catch
+            {
+                
             }
         }
 
@@ -87,23 +105,65 @@ namespace ÖVFahrplan
         // Stationsvorschläge werden in der ComboBox angezeigt (Auto Complete)
         private void txtDeparture_TextChanged(object sender, EventArgs e)
         {
-            transport = new Transport();
-
-            var stations = transport.GetStations(txtDeparture.Text).StationList;
-            for (int i = 0; i < stations.Count; i++)
+            try
             {
-                txtDeparture.Items.Add(stations[i].Name);
+                transport = new Transport();
+
+                txtDeparture.DroppedDown = true;
+                Cursor.Current = Cursors.Default;
+
+                for (int i = txtDeparture.Items.Count - 1; i >= 0; i--)
+                    txtDeparture.Items.RemoveAt(i);
+
+                var stations = transport.GetStations(txtDeparture.Text).StationList;
+                for (int i = 0; i < stations.Count; i++)
+                {
+                    txtDeparture.Items.Add(stations[i].Name);
+                }
             }
+            catch
+            {
+               
+            }
+            
         }
 
         private void cbStation_TextChanged(object sender, EventArgs e)
         {
-            transport = new Transport();
-
-            var stations = transport.GetStations(cbStation.Text).StationList;
-            for (int i = 0; i < stations.Count; i++)
+            try
             {
-                cbStation.Items.Add(stations[i].Name);
+                transport = new Transport();
+
+                cbStation.DroppedDown = true;
+                Cursor.Current = Cursors.Default;
+
+                for (int i = cbStation.Items.Count - 1; i >= 0; i--)
+                    cbStation.Items.RemoveAt(i);
+
+                var stations = transport.GetStations(cbStation.Text).StationList;
+                for (int i = 0; i < stations.Count; i++)
+                {
+                    cbStation.Items.Add(stations[i].Name);
+                }
+            }
+            catch
+            {
+                
+            }
+        }
+
+        private void btnShowConnections_Click(object sender, EventArgs e)
+        {
+            transport = new Transport();
+            verbindungen = transport.GetStationBoard(cbStation.Text, "");
+            for (int i = 0; i < 5; i++)
+            {
+                ListViewItem item = new ListViewItem();
+
+                item.Text = cbStation.Text;
+                item.SubItems.Add("");
+
+                string departureTime = verbindungen.Entries[i].Stop.Departure.TimeOfDay + "";
             }
         }
     }
