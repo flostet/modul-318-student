@@ -38,20 +38,25 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtTime = new System.Windows.Forms.TextBox();
-            this.txtDestination = new System.Windows.Forms.TextBox();
-            this.txtDeparture = new System.Windows.Forms.TextBox();
-            this.listConnections = new System.Windows.Forms.ListBox();
             this.lblConnections = new System.Windows.Forms.Label();
             this.btnSendMail = new System.Windows.Forms.Button();
             this.btnDetails = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.txtDeparture = new System.Windows.Forms.ComboBox();
+            this.txtDestination = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtDestination);
+            this.groupBox1.Controls.Add(this.txtDeparture);
             this.groupBox1.Controls.Add(this.btnSearchConnection);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
@@ -61,8 +66,6 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtTime);
-            this.groupBox1.Controls.Add(this.txtDestination);
-            this.groupBox1.Controls.Add(this.txtDeparture);
             this.groupBox1.Location = new System.Drawing.Point(13, 13);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(414, 213);
@@ -78,6 +81,7 @@
             this.btnSearchConnection.TabIndex = 11;
             this.btnSearchConnection.Text = "Verbindung Suchen";
             this.btnSearchConnection.UseVisualStyleBackColor = true;
+            this.btnSearchConnection.Click += new System.EventHandler(this.btnSearchConnection_Click);
             // 
             // label4
             // 
@@ -147,28 +151,6 @@
             this.txtTime.Size = new System.Drawing.Size(100, 20);
             this.txtTime.TabIndex = 3;
             // 
-            // txtDestination
-            // 
-            this.txtDestination.Location = new System.Drawing.Point(223, 45);
-            this.txtDestination.Name = "txtDestination";
-            this.txtDestination.Size = new System.Drawing.Size(184, 20);
-            this.txtDestination.TabIndex = 1;
-            // 
-            // txtDeparture
-            // 
-            this.txtDeparture.Location = new System.Drawing.Point(10, 45);
-            this.txtDeparture.Name = "txtDeparture";
-            this.txtDeparture.Size = new System.Drawing.Size(180, 20);
-            this.txtDeparture.TabIndex = 0;
-            // 
-            // listConnections
-            // 
-            this.listConnections.FormattingEnabled = true;
-            this.listConnections.Location = new System.Drawing.Point(10, 50);
-            this.listConnections.Name = "listConnections";
-            this.listConnections.Size = new System.Drawing.Size(396, 290);
-            this.listConnections.TabIndex = 1;
-            // 
             // lblConnections
             // 
             this.lblConnections.AutoSize = true;
@@ -209,11 +191,11 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.listView1);
             this.groupBox2.Controls.Add(this.lblConnections);
             this.groupBox2.Controls.Add(this.btnSendMail);
             this.groupBox2.Controls.Add(this.btnDetails);
             this.groupBox2.Controls.Add(this.btnClose);
-            this.groupBox2.Controls.Add(this.listConnections);
             this.groupBox2.Location = new System.Drawing.Point(13, 233);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(414, 392);
@@ -221,15 +203,69 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Verbindungen";
             // 
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3});
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(10, 50);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(396, 290);
+            this.listView1.TabIndex = 7;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Tag = "1";
+            this.columnHeader1.Text = "Zeit";
+            this.columnHeader1.Width = 116;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Tag = "2";
+            this.columnHeader2.Text = "Zug/Bus Nr";
+            this.columnHeader2.Width = 118;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Tag = "3";
+            this.columnHeader3.Text = "Dauer";
+            // 
+            // txtDeparture
+            // 
+            this.txtDeparture.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtDeparture.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txtDeparture.FormattingEnabled = true;
+            this.txtDeparture.Location = new System.Drawing.Point(10, 45);
+            this.txtDeparture.Name = "txtDeparture";
+            this.txtDeparture.Size = new System.Drawing.Size(180, 21);
+            this.txtDeparture.TabIndex = 12;
+            this.txtDeparture.TextChanged += new System.EventHandler(this.txtDeparture_TextChanged);
+            // 
+            // txtDestination
+            // 
+            this.txtDestination.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtDestination.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txtDestination.FormattingEnabled = true;
+            this.txtDestination.Location = new System.Drawing.Point(223, 45);
+            this.txtDestination.Name = "txtDestination";
+            this.txtDestination.Size = new System.Drawing.Size(183, 21);
+            this.txtDestination.TabIndex = 13;
+            this.txtDestination.TextChanged += new System.EventHandler(this.txtDestination_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(439, 635);
+            this.ClientSize = new System.Drawing.Size(435, 635);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
             this.Text = "ÖV-Fahrplan";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -247,17 +283,20 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtTime;
-        private System.Windows.Forms.TextBox txtDestination;
-        private System.Windows.Forms.TextBox txtDeparture;
         private System.Windows.Forms.Button btnSearchConnection;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ListBox listConnections;
         private System.Windows.Forms.Label lblConnections;
         private System.Windows.Forms.Button btnSendMail;
         private System.Windows.Forms.Button btnDetails;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ComboBox txtDestination;
+        private System.Windows.Forms.ComboBox txtDeparture;
     }
 }
 
