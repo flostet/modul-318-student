@@ -300,7 +300,17 @@ namespace ÖVFahrplan
 
         private void menuItemEnd_Click(object sender, EventArgs e)
         {
-            txtDeparture.Text = listViewConnections.SelectedItems[0].SubItems[1].Text;
+            transport = new Transport();
+
+            stations = transport.GetStations(listViewConnections.SelectedItems[0].SubItems[1].Text);
+
+            ShowMap map = new ShowMap();
+
+            map.xCoordinate = stations.StationList.First().Coordinate.XCoordinate;
+            map.yCoordinate = stations.StationList.First().Coordinate.YCoordinate;
+            map.CityName = listViewConnections.SelectedItems[0].SubItems[1].Text;
+
+            map.Show();
         }
     }
 }

@@ -22,9 +22,9 @@ namespace ÖVFahrplan
         }
 
         // Double Variablen um die Koordinaten aus dem Hauptformular an dieses Form zu übergeben.
-        public double yCoordinate;
-        public double xCoordinate;
-        public string CityName;
+        public double yCoordinate = 8.3093072;
+        public double xCoordinate = 47.0501682;
+        public string CityName = "Luzern";
 
 
         private void btnShowOnMap_Click(object sender, EventArgs e)
@@ -39,11 +39,6 @@ namespace ÖVFahrplan
             if (xCoordinate != null || yCoordinate != null)
             {
                 showStationOnMapCoordinates();
-            }
-            else
-            {
-                xCoordinate = 47.0501682;
-                yCoordinate = 8.3093072;
             }
         }
 
