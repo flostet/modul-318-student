@@ -41,7 +41,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.listViewConnections = new System.Windows.Forms.ListView();
             this.listDestination = new System.Windows.Forms.ListBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxSearchConnection = new System.Windows.Forms.GroupBox();
             this.listDeparture = new System.Windows.Forms.ListBox();
             this.txtDestination = new System.Windows.Forms.TextBox();
             this.txtDeparture = new System.Windows.Forms.TextBox();
@@ -50,7 +50,7 @@
             this.btnShowOnMap = new System.Windows.Forms.Button();
             this.contextMenuShowMap = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxSearchConnection.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSearchConnection
@@ -160,28 +160,28 @@
             this.listDestination.DoubleClick += new System.EventHandler(this.listDestination_DoubleClick);
             this.listDestination.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listDestination_KeyDown);
             // 
-            // groupBox1
+            // groupBoxSearchConnection
             // 
-            this.groupBox1.Controls.Add(this.listDeparture);
-            this.groupBox1.Controls.Add(this.listDestination);
-            this.groupBox1.Controls.Add(this.txtDestination);
-            this.groupBox1.Controls.Add(this.txtDeparture);
-            this.groupBox1.Controls.Add(this.radioBtnDeparturePlan);
-            this.groupBox1.Controls.Add(this.radioBtnConnectionsPlan);
-            this.groupBox1.Controls.Add(this.lblDestination);
-            this.groupBox1.Controls.Add(this.lblTime);
-            this.groupBox1.Controls.Add(this.lblDate);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.datePicker);
-            this.groupBox1.Controls.Add(this.btnSearchConnection);
-            this.groupBox1.Controls.Add(this.txtTime);
-            this.groupBox1.Location = new System.Drawing.Point(16, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(509, 189);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Eingaben";
-            this.groupBox1.Click += new System.EventHandler(this.groupBox1_Click);
+            this.groupBoxSearchConnection.Controls.Add(this.listDeparture);
+            this.groupBoxSearchConnection.Controls.Add(this.listDestination);
+            this.groupBoxSearchConnection.Controls.Add(this.txtDestination);
+            this.groupBoxSearchConnection.Controls.Add(this.txtDeparture);
+            this.groupBoxSearchConnection.Controls.Add(this.radioBtnDeparturePlan);
+            this.groupBoxSearchConnection.Controls.Add(this.radioBtnConnectionsPlan);
+            this.groupBoxSearchConnection.Controls.Add(this.lblDestination);
+            this.groupBoxSearchConnection.Controls.Add(this.lblTime);
+            this.groupBoxSearchConnection.Controls.Add(this.lblDate);
+            this.groupBoxSearchConnection.Controls.Add(this.label1);
+            this.groupBoxSearchConnection.Controls.Add(this.datePicker);
+            this.groupBoxSearchConnection.Controls.Add(this.btnSearchConnection);
+            this.groupBoxSearchConnection.Controls.Add(this.txtTime);
+            this.groupBoxSearchConnection.Location = new System.Drawing.Point(16, 6);
+            this.groupBoxSearchConnection.Name = "groupBoxSearchConnection";
+            this.groupBoxSearchConnection.Size = new System.Drawing.Size(509, 189);
+            this.groupBoxSearchConnection.TabIndex = 0;
+            this.groupBoxSearchConnection.TabStop = false;
+            this.groupBoxSearchConnection.Text = "Verbindungen suchen";
+            this.groupBoxSearchConnection.Click += new System.EventHandler(this.groupBoxSearchConnection_Click);
             // 
             // listDeparture
             // 
@@ -257,7 +257,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(534, 496);
             this.Controls.Add(this.btnShowOnMap);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBoxSearchConnection);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnClose);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -265,8 +265,8 @@
             this.Text = "ÖV-Fahrplan";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxSearchConnection.ResumeLayout(false);
+            this.groupBoxSearchConnection.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -282,7 +282,7 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ListView listViewConnections;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxSearchConnection;
         private System.Windows.Forms.RadioButton radioBtnDeparturePlan;
         private System.Windows.Forms.RadioButton radioBtnConnectionsPlan;
         private System.Windows.Forms.TextBox txtDestination;

@@ -24,18 +24,21 @@ namespace ÖVFahrplan
             InitializeComponent();
         }
 
+        // Das Programm wird geschlossen
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        // Beim Start des Programms wird die aktuelle Uhrzeit und der RadioButton(radioBtnConnectionsPlan) auf ausgewählt gesetzt.
         private void Form1_Load(object sender, EventArgs e)
         {
             txtTime.Text = DateTime.Now.ToString("HH:mm");
-            txtDeparture.Focus();
             radioBtnConnectionsPlan.Checked = true;
         }
 
+        // Sucht die Verbindungen zwischen den eingegebenen Stationen heraus. Wenn der RadioButton(radioBtnDeparturePlan)
+        // ausgewählt ist, werden alle Verbindungen ab dem eingegeben Ort angezeigt.
         private void btnSearchConnection_Click(object sender, EventArgs e)
         {
             listDeparture.Visible = false;
@@ -110,6 +113,8 @@ namespace ÖVFahrplan
             }
         }
 
+        // Ist für AutoCompletion. Bei jeder Textänderung in TextBox(txtDeparture) wird die Liste frisch in die
+        // ListBox (listDeparture) geschrieben.
         private void txtDeparture_TextChanged(object sender, EventArgs e)
         {
             transport = new Transport();
@@ -132,6 +137,8 @@ namespace ÖVFahrplan
             }
         }
 
+        // Ist für AutoCompletion. Bei jeder Textänderung in TextBox(txtDestination) wird die Liste frisch in die
+        // ListBox (listDestination) geschrieben.
         private void txtDestination_TextChanged(object sender, EventArgs e)
         {
             transport = new Transport();
@@ -154,18 +161,22 @@ namespace ÖVFahrplan
             }
         }
 
+        // Bei Doppelklick in ListBox(listDeparture) wird selektiertes Element in TextBox(txtDeparture) geschrieben.
         private void listDeparture_DoubleClick(object sender, EventArgs e)
         {
             txtDeparture.Text = listDeparture.SelectedItem.ToString();
             listDeparture.Visible = false;
         }
 
+        // Bei Doppelklick in ListBox(listDestination) wird selektiertes Element in TextBox(txtDestination) geschrieben.
         private void listDestination_DoubleClick(object sender, EventArgs e)
         {
             txtDestination.Text = listDestination.SelectedItem.ToString();
             listDestination.Visible = false;
         }
 
+        // Sobald Arrow Key nach unten in TextBox(txtDeparture) gedrückt wird, springt Focus auf ListBox(listDeparture) und
+        // erstes Element darin wird selektiert.
         private void txtDeparture_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Down)
@@ -175,6 +186,8 @@ namespace ÖVFahrplan
             }
         }
 
+        // Sobald Arrow Key nach unten in TextBox(txtDestination) gedrückt wird, springt Focus auf ListBox(listDestination) und
+        // erstes Element darin wird selektiert.
         private void txtDestination_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Down)
@@ -184,6 +197,7 @@ namespace ÖVFahrplan
             }
         }
 
+        // Wenn Enter Key in ListBox gedrückt wird, wird ausgewählter Text in TextBox geschrieben und ListBox ausgeblendet.
         private void listDeparture_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -193,6 +207,7 @@ namespace ÖVFahrplan
             }
         }
 
+        // Wenn Enter Key in ListBox gedrückt wird, wird ausgewählter Text in TextBox geschrieben und ListBox ausgeblendet.
         private void listDestination_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -202,6 +217,8 @@ namespace ÖVFahrplan
             }
         }
 
+        // Wenn ausgewählter RadioButton geändert wird, werden Steuerelemente ein oder ausgeblendet und die Spaltennamen
+        // der ListView geändert.
         private void radioBtnConnectionsPlan_CheckedChanged(object sender, EventArgs e)
         {
             if (radioBtnConnectionsPlan.Checked)
@@ -243,29 +260,30 @@ namespace ÖVFahrplan
             listDeparture.Visible = false;
         }
 
+        // Ausgewählter Text der ListBox(listDestination) wird in die TextBox(txtDestination) geschrieben
+        // und anschliessend wird die ListBox ausgeblendet.
         private void listDestination_Click(object sender, EventArgs e)
         {
             txtDestination.Text = listDestination.Text;
             listDestination.Visible = false;
         }
 
-        private void groupBox1_Click(object sender, EventArgs e)
+        // Wenn in die GroupBox gecklickt wird, verschwinden die ListBoxen (listDeparture und listDestination)
+        private void groupBoxSearchConnection_Click(object sender, EventArgs e)
         {
             listDeparture.Visible = false;
             listDestination.Visible = false;
         }
 
-        private void btnSendMail_Click(object sender, EventArgs e)
-        {
-            
-        }
-
+        // Öffnet das zweite Formular(ShowMap) darin werden die Station auf der Karte angezeigt.
         private void btnShowOnMap_Click(object sender, EventArgs e)
         {
             ShowMap map = new ShowMap();
             map.Show();
         }
 
+        // Es wird überprüft, ob ein Rechtsklick in die ListView(ListViewConnections) gemacht wurde.
+        // Wenn das der Fall ist, wird ein ContextMenu(contextmenuShowMap) 
         private void listViewConnections_MouseClick(object sender, MouseEventArgs e)
         {
             contextMenuShowMap.Items.Clear();
@@ -283,6 +301,8 @@ namespace ÖVFahrplan
             }
         }
 
+        // EventHandler für ContextMenu Item. Holt die Koordinaten des Startortes der in der ListView
+        // ausgewählten Verbindung.
         private void menuItemStart_Click(object sender, EventArgs e)
         {
             transport = new Transport();
@@ -298,6 +318,8 @@ namespace ÖVFahrplan
             map.Show();
         }
 
+        // EventHandler für ContextMenu Item. Holt die Koordinaten des Zielortes der in der ListView
+        // ausgewählten Verbindung.
         private void menuItemEnd_Click(object sender, EventArgs e)
         {
             transport = new Transport();

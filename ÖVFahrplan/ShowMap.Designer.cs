@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShowMap));
             this.mapControlStations = new GMap.NET.WindowsForms.GMapControl();
             this.label1 = new System.Windows.Forms.Label();
             this.txtStation = new System.Windows.Forms.TextBox();
@@ -111,8 +112,9 @@
             this.Controls.Add(this.txtStation);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.mapControlStations);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ShowMap";
-            this.Text = "ShowMap";
+            this.Text = "Karte";
             this.Load += new System.EventHandler(this.ShowMap_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
