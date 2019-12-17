@@ -24,16 +24,27 @@ namespace ÖVFahrplan
         // Double Variablen um die Koordinaten aus dem Hauptformular an dieses Form zu übergeben.
         public double yCoordinate;
         public double xCoordinate;
+        public string CityName;
 
 
         private void btnShowOnMap_Click(object sender, EventArgs e)
         {
-            ShowStationOnMap();
+            ShowStationOnMapName();
         }
 
         private void ShowMap_Load(object sender, EventArgs e)
         {
             mapControlStations.ShowCenter = false;
+
+            if (xCoordinate != null || yCoordinate != null)
+            {
+                showStationOnMapCoordinates();
+            }
+            else
+            {
+                xCoordinate = 47.0501682;
+                yCoordinate = 8.3093072;
+            }
         }
 
         private void txtStation_TextChanged(object sender, EventArgs e)
@@ -85,13 +96,13 @@ namespace ÖVFahrplan
             {
                 txtStation.Text = listStations.Text;
                 listStations.Visible = false;
-                ShowStationOnMap();
+                ShowStationOnMapName();
             }
         }
 
         // Zeigt den gewünschten Ort auf der Karte an. Um die Karte anzuzeigen wurde ein MapControll verwendet,
         // dass ich mit dem NuGet-Paket GMapControl hinzugefügt habe.
-        private void ShowStationOnMap()
+        private void ShowStationOnMapName()
         {
             Transport transport = new Transport();
             string station = txtStation.Text;
@@ -110,6 +121,22 @@ namespace ÖVFahrplan
             mapControlStations.CanDragMap = true;
             mapControlStations.ShowCenter = false;
             mapControlStations.DragButton = MouseButtons.Left;
+        }
+
+        private void showStationOnMapCoordinates()
+        {
+            mapControlStations.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
+            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
+
+            mapControlStations.Position = new PointLatLng(xCoordinate, yCoordinate);
+            mapControlStations.MinZoom = 2;
+            mapControlStations.MaxZoom = 18;
+            mapControlStations.Zoom = 17;
+            mapControlStations.CanDragMap = true;
+            mapControlStations.ShowCenter = false;
+            mapControlStations.DragButton = MouseButtons.Left;
+            txtStation.Text = CityName;
+            listStations.Visible = false;
         }
     }
 }

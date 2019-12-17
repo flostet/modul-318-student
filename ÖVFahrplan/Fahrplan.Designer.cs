@@ -28,26 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Fahrplan));
             this.btnSearchConnection = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblTime = new System.Windows.Forms.Label();
+            this.lblDate = new System.Windows.Forms.Label();
             this.datePicker = new System.Windows.Forms.DateTimePicker();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblDestination = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtTime = new System.Windows.Forms.TextBox();
-            this.btnSendMail = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.listViewConnections = new System.Windows.Forms.ListView();
+            this.listDestination = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listDeparture = new System.Windows.Forms.ListBox();
             this.txtDestination = new System.Windows.Forms.TextBox();
-            this.listDestination = new System.Windows.Forms.ListBox();
             this.txtDeparture = new System.Windows.Forms.TextBox();
             this.radioBtnDeparturePlan = new System.Windows.Forms.RadioButton();
             this.radioBtnConnectionsPlan = new System.Windows.Forms.RadioButton();
             this.btnShowOnMap = new System.Windows.Forms.Button();
+            this.contextMenuShowMap = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -62,23 +63,23 @@
             this.btnSearchConnection.UseVisualStyleBackColor = true;
             this.btnSearchConnection.Click += new System.EventHandler(this.btnSearchConnection_Click);
             // 
-            // label4
+            // lblTime
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(144, 89);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(43, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Uhrzeit:";
+            this.lblTime.AutoSize = true;
+            this.lblTime.Location = new System.Drawing.Point(144, 89);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(43, 13);
+            this.lblTime.TabIndex = 10;
+            this.lblTime.Text = "Uhrzeit:";
             // 
-            // label3
+            // lblDate
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 89);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Datum:";
+            this.lblDate.AutoSize = true;
+            this.lblDate.Location = new System.Drawing.Point(15, 89);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(41, 13);
+            this.lblDate.TabIndex = 9;
+            this.lblDate.Text = "Datum:";
             // 
             // datePicker
             // 
@@ -89,14 +90,14 @@
             this.datePicker.Size = new System.Drawing.Size(92, 20);
             this.datePicker.TabIndex = 3;
             // 
-            // label2
+            // lblDestination
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(225, 25);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Nach:";
+            this.lblDestination.AutoSize = true;
+            this.lblDestination.Location = new System.Drawing.Point(225, 25);
+            this.lblDestination.Name = "lblDestination";
+            this.lblDestination.Size = new System.Drawing.Size(36, 13);
+            this.lblDestination.TabIndex = 5;
+            this.lblDestination.Text = "Nach:";
             // 
             // label1
             // 
@@ -113,16 +114,6 @@
             this.txtTime.Name = "txtTime";
             this.txtTime.Size = new System.Drawing.Size(100, 20);
             this.txtTime.TabIndex = 4;
-            // 
-            // btnSendMail
-            // 
-            this.btnSendMail.Location = new System.Drawing.Point(16, 450);
-            this.btnSendMail.Name = "btnSendMail";
-            this.btnSendMail.Size = new System.Drawing.Size(115, 36);
-            this.btnSendMail.TabIndex = 7;
-            this.btnSendMail.Text = "per Mail versenden";
-            this.btnSendMail.UseVisualStyleBackColor = true;
-            this.btnSendMail.Click += new System.EventHandler(this.btnSendMail_Click);
             // 
             // btnClose
             // 
@@ -155,19 +146,31 @@
             this.listViewConnections.TabIndex = 7;
             this.listViewConnections.UseCompatibleStateImageBehavior = false;
             this.listViewConnections.View = System.Windows.Forms.View.Details;
-            this.listViewConnections.DoubleClick += new System.EventHandler(this.listViewConnections_DoubleClick);
+            this.listViewConnections.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewConnections_MouseClick);
+            // 
+            // listDestination
+            // 
+            this.listDestination.FormattingEnabled = true;
+            this.listDestination.Location = new System.Drawing.Point(228, 61);
+            this.listDestination.Name = "listDestination";
+            this.listDestination.Size = new System.Drawing.Size(172, 82);
+            this.listDestination.TabIndex = 19;
+            this.listDestination.Visible = false;
+            this.listDestination.Click += new System.EventHandler(this.listDestination_Click);
+            this.listDestination.DoubleClick += new System.EventHandler(this.listDestination_DoubleClick);
+            this.listDestination.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listDestination_KeyDown);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.listDeparture);
-            this.groupBox1.Controls.Add(this.txtDestination);
             this.groupBox1.Controls.Add(this.listDestination);
+            this.groupBox1.Controls.Add(this.txtDestination);
             this.groupBox1.Controls.Add(this.txtDeparture);
             this.groupBox1.Controls.Add(this.radioBtnDeparturePlan);
             this.groupBox1.Controls.Add(this.radioBtnConnectionsPlan);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.lblDestination);
+            this.groupBox1.Controls.Add(this.lblTime);
+            this.groupBox1.Controls.Add(this.lblDate);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.datePicker);
             this.groupBox1.Controls.Add(this.btnSearchConnection);
@@ -200,18 +203,6 @@
             this.txtDestination.TabIndex = 1;
             this.txtDestination.TextChanged += new System.EventHandler(this.txtDestination_TextChanged);
             this.txtDestination.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDestination_KeyDown);
-            // 
-            // listDestination
-            // 
-            this.listDestination.FormattingEnabled = true;
-            this.listDestination.Location = new System.Drawing.Point(228, 61);
-            this.listDestination.Name = "listDestination";
-            this.listDestination.Size = new System.Drawing.Size(172, 82);
-            this.listDestination.TabIndex = 19;
-            this.listDestination.Visible = false;
-            this.listDestination.Click += new System.EventHandler(this.listDestination_Click);
-            this.listDestination.DoubleClick += new System.EventHandler(this.listDestination_DoubleClick);
-            this.listDestination.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listDestination_KeyDown);
             // 
             // txtDeparture
             // 
@@ -247,13 +238,18 @@
             // 
             // btnShowOnMap
             // 
-            this.btnShowOnMap.Location = new System.Drawing.Point(218, 450);
+            this.btnShowOnMap.Location = new System.Drawing.Point(16, 450);
             this.btnShowOnMap.Name = "btnShowOnMap";
             this.btnShowOnMap.Size = new System.Drawing.Size(114, 36);
             this.btnShowOnMap.TabIndex = 9;
             this.btnShowOnMap.Text = "Auf Karte suchen";
             this.btnShowOnMap.UseVisualStyleBackColor = true;
             this.btnShowOnMap.Click += new System.EventHandler(this.btnShowOnMap_Click);
+            // 
+            // contextMenuShowMap
+            // 
+            this.contextMenuShowMap.Name = "contextMenuShowMap";
+            this.contextMenuShowMap.Size = new System.Drawing.Size(61, 4);
             // 
             // Fahrplan
             // 
@@ -262,7 +258,6 @@
             this.ClientSize = new System.Drawing.Size(534, 496);
             this.Controls.Add(this.btnShowOnMap);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnSendMail);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnClose);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -278,13 +273,12 @@
 
         #endregion
         private System.Windows.Forms.DateTimePicker datePicker;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblDestination;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtTime;
         private System.Windows.Forms.Button btnSearchConnection;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btnSendMail;
+        private System.Windows.Forms.Label lblTime;
+        private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ListView listViewConnections;
@@ -296,6 +290,7 @@
         private System.Windows.Forms.ListBox listDestination;
         private System.Windows.Forms.ListBox listDeparture;
         private System.Windows.Forms.Button btnShowOnMap;
+        private System.Windows.Forms.ContextMenuStrip contextMenuShowMap;
     }
 }
 

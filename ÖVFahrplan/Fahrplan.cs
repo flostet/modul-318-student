@@ -266,9 +266,41 @@ namespace ÖVFahrplan
             map.Show();
         }
 
-        private void listViewConnections_DoubleClick(object sender, EventArgs e)
+        private void listViewConnections_MouseClick(object sender, MouseEventArgs e)
         {
+            contextMenuShowMap.Items.Clear();
+            if (e.Button == MouseButtons.Right)
+            {
+                ToolStripMenuItem menuItemStart = new ToolStripMenuItem("Startort auf Karte anzeigen");
+                ToolStripMenuItem menuItemEnd = new ToolStripMenuItem("Zielort auf Karte anzeigen");
 
+                menuItemStart.Click += new EventHandler(menuItemStart_Click);
+                menuItemEnd.Click += new EventHandler(menuItemEnd_Click);
+
+                contextMenuShowMap.Items.AddRange(new ToolStripItem[]{ menuItemStart, menuItemEnd });
+
+                contextMenuShowMap.Show(Cursor.Position);
+            }
+        }
+
+        private void menuItemStart_Click(object sender, EventArgs e)
+        {
+            transport = new Transport();
+
+            stations = transport.GetStations(listViewConnections.FocusedItem.Text);
+            
+            ShowMap map = new ShowMap();
+
+            map.xCoordinate = stations.StationList.First().Coordinate.XCoordinate;
+            map.yCoordinate = stations.StationList.First().Coordinate.YCoordinate;
+            map.CityName = listViewConnections.FocusedItem.Text;
+
+            map.Show();
+        }
+
+        private void menuItemEnd_Click(object sender, EventArgs e)
+        {
+            txtDeparture.Text = listViewConnections.SelectedItems[0].SubItems[1].Text;
         }
     }
 }
