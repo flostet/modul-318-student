@@ -40,29 +40,23 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.txtDeparture = new System.Windows.Forms.ComboBox();
             this.txtDestination = new System.Windows.Forms.ComboBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label5 = new System.Windows.Forms.Label();
-            this.cbStation = new System.Windows.Forms.ComboBox();
-            this.btnStationsNearMe = new System.Windows.Forms.Button();
-            this.btnShowConnections = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.groupBox2.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSearchConnection
             // 
-            this.btnSearchConnection.Location = new System.Drawing.Point(284, 81);
+            this.btnSearchConnection.Location = new System.Drawing.Point(286, 99);
             this.btnSearchConnection.Name = "btnSearchConnection";
             this.btnSearchConnection.Size = new System.Drawing.Size(122, 39);
             this.btnSearchConnection.TabIndex = 11;
@@ -73,7 +67,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(141, 80);
+            this.label4.Location = new System.Drawing.Point(143, 98);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(43, 13);
             this.label4.TabIndex = 10;
@@ -82,7 +76,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 80);
+            this.label3.Location = new System.Drawing.Point(14, 98);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 13);
             this.label3.TabIndex = 9;
@@ -92,7 +86,7 @@
             // 
             this.datePicker.CustomFormat = "dd:MM:yyyy";
             this.datePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.datePicker.Location = new System.Drawing.Point(12, 100);
+            this.datePicker.Location = new System.Drawing.Point(14, 118);
             this.datePicker.Name = "datePicker";
             this.datePicker.Size = new System.Drawing.Size(92, 20);
             this.datePicker.TabIndex = 8;
@@ -100,7 +94,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(223, 11);
+            this.label2.Location = new System.Drawing.Point(225, 29);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(36, 13);
             this.label2.TabIndex = 5;
@@ -109,7 +103,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 11);
+            this.label1.Location = new System.Drawing.Point(9, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 13);
             this.label1.TabIndex = 4;
@@ -117,7 +111,7 @@
             // 
             // txtTime
             // 
-            this.txtTime.Location = new System.Drawing.Point(144, 100);
+            this.txtTime.Location = new System.Drawing.Point(146, 118);
             this.txtTime.Name = "txtTime";
             this.txtTime.Size = new System.Drawing.Size(100, 20);
             this.txtTime.TabIndex = 3;
@@ -169,6 +163,16 @@
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Von";
+            this.columnHeader4.Width = 90;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Nach";
+            this.columnHeader5.Width = 103;
+            // 
             // columnHeader1
             // 
             this.columnHeader1.Tag = "1";
@@ -192,7 +196,7 @@
             this.txtDeparture.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.txtDeparture.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.txtDeparture.FormattingEnabled = true;
-            this.txtDeparture.Location = new System.Drawing.Point(10, 29);
+            this.txtDeparture.Location = new System.Drawing.Point(12, 47);
             this.txtDeparture.Name = "txtDeparture";
             this.txtDeparture.Size = new System.Drawing.Size(180, 21);
             this.txtDeparture.TabIndex = 12;
@@ -203,121 +207,68 @@
             this.txtDestination.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.txtDestination.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.txtDestination.FormattingEnabled = true;
-            this.txtDestination.Location = new System.Drawing.Point(226, 29);
+            this.txtDestination.Location = new System.Drawing.Point(228, 47);
             this.txtDestination.Name = "txtDestination";
             this.txtDestination.Size = new System.Drawing.Size(180, 21);
             this.txtDestination.TabIndex = 13;
             this.txtDestination.TextChanged += new System.EventHandler(this.txtDestination_TextChanged);
             // 
-            // tabControl1
+            // groupBox1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(513, 185);
-            this.tabControl1.TabIndex = 7;
+            this.groupBox1.Controls.Add(this.radioButton2);
+            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Controls.Add(this.txtDestination);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.datePicker);
+            this.groupBox1.Controls.Add(this.txtDeparture);
+            this.groupBox1.Controls.Add(this.btnSearchConnection);
+            this.groupBox1.Controls.Add(this.txtTime);
+            this.groupBox1.Location = new System.Drawing.Point(16, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(509, 191);
+            this.groupBox1.TabIndex = 16;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Eingaben";
             // 
-            // tabPage1
+            // radioButton1
             // 
-            this.tabPage1.Controls.Add(this.txtDestination);
-            this.tabPage1.Controls.Add(this.txtDeparture);
-            this.tabPage1.Controls.Add(this.txtTime);
-            this.tabPage1.Controls.Add(this.btnSearchConnection);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.datePicker);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(505, 159);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Verbindungen suchen";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(14, 158);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(129, 17);
+            this.radioButton1.TabIndex = 14;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Verbindungen suchen";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // radioButton2
             // 
-            this.tabPage2.Controls.Add(this.btnShowConnections);
-            this.tabPage2.Controls.Add(this.btnStationsNearMe);
-            this.tabPage2.Controls.Add(this.cbStation);
-            this.tabPage2.Controls.Add(this.label5);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(505, 159);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Verbindungen ab Station";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Von";
-            this.columnHeader4.Width = 90;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Nach";
-            this.columnHeader5.Width = 103;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 12);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 13);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Station:";
-            // 
-            // cbStation
-            // 
-            this.cbStation.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbStation.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbStation.FormattingEnabled = true;
-            this.cbStation.Location = new System.Drawing.Point(10, 37);
-            this.cbStation.Name = "cbStation";
-            this.cbStation.Size = new System.Drawing.Size(180, 21);
-            this.cbStation.TabIndex = 13;
-            this.cbStation.TextChanged += new System.EventHandler(this.cbStation_TextChanged);
-            // 
-            // btnStationsNearMe
-            // 
-            this.btnStationsNearMe.Location = new System.Drawing.Point(10, 105);
-            this.btnStationsNearMe.Name = "btnStationsNearMe";
-            this.btnStationsNearMe.Size = new System.Drawing.Size(113, 36);
-            this.btnStationsNearMe.TabIndex = 14;
-            this.btnStationsNearMe.Text = "Stationen in meiner Nähe";
-            this.btnStationsNearMe.UseVisualStyleBackColor = true;
-            // 
-            // btnShowConnections
-            // 
-            this.btnShowConnections.Location = new System.Drawing.Point(373, 105);
-            this.btnShowConnections.Name = "btnShowConnections";
-            this.btnShowConnections.Size = new System.Drawing.Size(115, 36);
-            this.btnShowConnections.TabIndex = 15;
-            this.btnShowConnections.Text = "Verbindungen anzeigen";
-            this.btnShowConnections.UseVisualStyleBackColor = true;
-            this.btnShowConnections.Click += new System.EventHandler(this.btnShowConnections_Click);
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(161, 158);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(142, 17);
+            this.radioButton2.TabIndex = 15;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Verbindungen ab Station";
+            this.radioButton2.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(537, 501);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "ÖV-Fahrplan";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox2.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -339,15 +290,11 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ComboBox txtDeparture;
         private System.Windows.Forms.ComboBox txtDestination;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ComboBox cbStation;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button btnShowConnections;
-        private System.Windows.Forms.Button btnStationsNearMe;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }
 

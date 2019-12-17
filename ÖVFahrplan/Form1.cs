@@ -161,10 +161,23 @@ namespace ÖVFahrplan
                 ListViewItem item = new ListViewItem();
 
                 item.Text = cbStation.Text;
-                item.SubItems.Add("");
+
+                string destination = verbindungen.Entries[i].To;
+                item.SubItems.Add(destination);
 
                 string departureTime = verbindungen.Entries[i].Stop.Departure.TimeOfDay + "";
+                item.SubItems.Add(departureTime);
+
+                string trainNumber = verbindungen.Entries[i].Category + " " + verbindungen.Entries[i].Number;
+                item.SubItems.Add(trainNumber);
+
+                listView1.Items.Add(item);
             }
+        }
+
+        private void tabPage1_Enter(object sender, EventArgs e)
+        {
+            columnHeader5.Width = 0;
         }
     }
 }
