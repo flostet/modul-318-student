@@ -1,6 +1,6 @@
 ﻿namespace ÖVFahrplan
 {
-    partial class Form1
+    partial class Fahrplan
     {
         /// <summary>
         /// Erforderliche Designervariable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Fahrplan));
             this.btnSearchConnection = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -39,7 +39,7 @@
             this.btnSendMail = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listViewConnections = new System.Windows.Forms.ListView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listDeparture = new System.Windows.Forms.ListBox();
             this.txtDestination = new System.Windows.Forms.TextBox();
@@ -47,6 +47,7 @@
             this.txtDeparture = new System.Windows.Forms.TextBox();
             this.radioBtnDeparturePlan = new System.Windows.Forms.RadioButton();
             this.radioBtnConnectionsPlan = new System.Windows.Forms.RadioButton();
+            this.btnShowOnMap = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -115,8 +116,7 @@
             // 
             // btnSendMail
             // 
-            this.btnSendMail.Enabled = false;
-            this.btnSendMail.Location = new System.Drawing.Point(10, 236);
+            this.btnSendMail.Location = new System.Drawing.Point(16, 450);
             this.btnSendMail.Name = "btnSendMail";
             this.btnSendMail.Size = new System.Drawing.Size(115, 36);
             this.btnSendMail.TabIndex = 7;
@@ -126,7 +126,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(410, 236);
+            this.btnClose.Location = new System.Drawing.Point(432, 450);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(93, 36);
             this.btnClose.TabIndex = 8;
@@ -136,28 +136,26 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.listView1);
-            this.groupBox2.Controls.Add(this.btnSendMail);
-            this.groupBox2.Controls.Add(this.btnClose);
+            this.groupBox2.Controls.Add(this.listViewConnections);
             this.groupBox2.Location = new System.Drawing.Point(16, 210);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(509, 287);
+            this.groupBox2.Size = new System.Drawing.Size(509, 234);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Verbindungen";
             // 
-            // listView1
+            // listViewConnections
             // 
-            this.listView1.FullRowSelect = true;
-            this.listView1.GridLines = true;
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(10, 19);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(493, 202);
-            this.listView1.TabIndex = 7;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            this.listViewConnections.FullRowSelect = true;
+            this.listViewConnections.GridLines = true;
+            this.listViewConnections.HideSelection = false;
+            this.listViewConnections.Location = new System.Drawing.Point(10, 19);
+            this.listViewConnections.Name = "listViewConnections";
+            this.listViewConnections.Size = new System.Drawing.Size(493, 202);
+            this.listViewConnections.TabIndex = 7;
+            this.listViewConnections.UseCompatibleStateImageBehavior = false;
+            this.listViewConnections.View = System.Windows.Forms.View.Details;
+            this.listViewConnections.DoubleClick += new System.EventHandler(this.listViewConnections_DoubleClick);
             // 
             // groupBox1
             // 
@@ -229,10 +227,10 @@
             this.radioBtnDeparturePlan.AutoSize = true;
             this.radioBtnDeparturePlan.Location = new System.Drawing.Point(125, 149);
             this.radioBtnDeparturePlan.Name = "radioBtnDeparturePlan";
-            this.radioBtnDeparturePlan.Size = new System.Drawing.Size(84, 17);
+            this.radioBtnDeparturePlan.Size = new System.Drawing.Size(142, 17);
             this.radioBtnDeparturePlan.TabIndex = 15;
             this.radioBtnDeparturePlan.TabStop = true;
-            this.radioBtnDeparturePlan.Text = "Abfahrtsplan";
+            this.radioBtnDeparturePlan.Text = "Verbindungen ab Station";
             this.radioBtnDeparturePlan.UseVisualStyleBackColor = true;
             // 
             // radioBtnConnectionsPlan
@@ -247,15 +245,28 @@
             this.radioBtnConnectionsPlan.UseVisualStyleBackColor = true;
             this.radioBtnConnectionsPlan.CheckedChanged += new System.EventHandler(this.radioBtnConnectionsPlan_CheckedChanged);
             // 
-            // Form1
+            // btnShowOnMap
+            // 
+            this.btnShowOnMap.Location = new System.Drawing.Point(218, 450);
+            this.btnShowOnMap.Name = "btnShowOnMap";
+            this.btnShowOnMap.Size = new System.Drawing.Size(114, 36);
+            this.btnShowOnMap.TabIndex = 9;
+            this.btnShowOnMap.Text = "Auf Karte suchen";
+            this.btnShowOnMap.UseVisualStyleBackColor = true;
+            this.btnShowOnMap.Click += new System.EventHandler(this.btnShowOnMap_Click);
+            // 
+            // Fahrplan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(533, 505);
+            this.ClientSize = new System.Drawing.Size(534, 496);
+            this.Controls.Add(this.btnShowOnMap);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.btnSendMail);
             this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.btnClose);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
+            this.Name = "Fahrplan";
             this.Text = "ÖV-Fahrplan";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox2.ResumeLayout(false);
@@ -276,7 +287,7 @@
         private System.Windows.Forms.Button btnSendMail;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewConnections;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioBtnDeparturePlan;
         private System.Windows.Forms.RadioButton radioBtnConnectionsPlan;
@@ -284,6 +295,7 @@
         private System.Windows.Forms.TextBox txtDeparture;
         private System.Windows.Forms.ListBox listDestination;
         private System.Windows.Forms.ListBox listDeparture;
+        private System.Windows.Forms.Button btnShowOnMap;
     }
 }
 

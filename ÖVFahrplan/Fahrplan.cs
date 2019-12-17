@@ -11,7 +11,7 @@ using SwissTransport;
 
 namespace ÖVFahrplan
 {
-    public partial class Form1 : Form
+    public partial class Fahrplan : Form
     {
         private Transport transport;
         private Stations stations;
@@ -19,7 +19,7 @@ namespace ÖVFahrplan
         private Connections connections;
         private StationBoardRoot verbindungen;
 
-        public Form1()
+        public Fahrplan()
         {
             InitializeComponent();
         }
@@ -43,7 +43,7 @@ namespace ÖVFahrplan
 
             try
             {
-                listView1.Items.Clear();
+                listViewConnections.Items.Clear();
 
                 if (radioBtnConnectionsPlan.Checked)
                 {
@@ -59,23 +59,23 @@ namespace ÖVFahrplan
 
                         for (int i = 0; i < connections.ConnectionList.Count; i++)
                         {
-                            ListViewItem item1 = new ListViewItem();
+                            ListViewItem connectionsListItem = new ListViewItem();
 
-                            item1.Text = txtDeparture.Text;
-                            item1.SubItems.Add(txtDestination.Text);
+                            connectionsListItem.Text = txtDeparture.Text;
+                            connectionsListItem.SubItems.Add(txtDestination.Text);
 
 
                             string depatureTime = connections.ConnectionList[i].From.Departure.Remove(0, 11).Remove(5, 8) +
                                                   " - " + connections.ConnectionList[i].To.Arrival.Remove(0, 11).Remove(5, 8);
-                            item1.SubItems.Add(depatureTime);
+                            connectionsListItem.SubItems.Add(depatureTime);
 
                             string trainNumber = verbindungen.Entries[1].Category + " " + verbindungen.Entries[i].Number;
-                            item1.SubItems.Add(trainNumber);
+                            connectionsListItem.SubItems.Add(trainNumber);
 
                             string duration = connections.ConnectionList[i].Duration.Remove(0, 3).Remove(5, 3) + " min";
-                            item1.SubItems.Add(duration);
+                            connectionsListItem.SubItems.Add(duration);
 
-                            listView1.Items.Add(item1);
+                            listViewConnections.Items.Add(connectionsListItem);
                         }
                     }
                 }
@@ -100,7 +100,7 @@ namespace ÖVFahrplan
                         string trainNumber = verbindungen.Entries[i].Category + " " + verbindungen.Entries[i].Number;
                         item.SubItems.Add(trainNumber);
 
-                        listView1.Items.Add(item);
+                        listViewConnections.Items.Add(item);
                     }
                 }
             }
@@ -211,13 +211,13 @@ namespace ÖVFahrplan
                 txtTime.Enabled = true;
                 datePicker.Enabled = true;
 
-                listView1.Items.Clear();
-                listView1.Columns.Clear();
-                listView1.Columns.Add("Von", 100);
-                listView1.Columns.Add("Nach", 100);
-                listView1.Columns.Add("Zeit", 110);
-                listView1.Columns.Add("Zug/Bus Nr", 100);
-                listView1.Columns.Add("Dauer", 60);
+                listViewConnections.Items.Clear();
+                listViewConnections.Columns.Clear();
+                listViewConnections.Columns.Add("Von", 100);
+                listViewConnections.Columns.Add("Nach", 100);
+                listViewConnections.Columns.Add("Zeit", 110);
+                listViewConnections.Columns.Add("Zug/Bus Nr", 100);
+                listViewConnections.Columns.Add("Dauer", 60);
 
             }
             else if (radioBtnDeparturePlan.Checked)
@@ -227,12 +227,12 @@ namespace ÖVFahrplan
                 txtTime.Enabled = false;
                 datePicker.Enabled = false;
 
-                listView1.Items.Clear();
-                listView1.Columns.Clear();
-                listView1.Columns.Add("Von", 100);
-                listView1.Columns.Add("Nach", 100);
-                listView1.Columns.Add("Zeit", 110);
-                listView1.Columns.Add("Zug/Bus Nr.", 100);
+                listViewConnections.Items.Clear();
+                listViewConnections.Columns.Clear();
+                listViewConnections.Columns.Add("Von", 100);
+                listViewConnections.Columns.Add("Nach", 100);
+                listViewConnections.Columns.Add("Zeit", 110);
+                listViewConnections.Columns.Add("Zug/Bus Nr.", 100);
             }
         }
 
@@ -257,12 +257,18 @@ namespace ÖVFahrplan
 
         private void btnSendMail_Click(object sender, EventArgs e)
         {
-
+            
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnShowOnMap_Click(object sender, EventArgs e)
         {
-            btnSendMail.Enabled = true;
+            ShowMap map = new ShowMap();
+            map.Show();
+        }
+
+        private void listViewConnections_DoubleClick(object sender, EventArgs e)
+        {
+
         }
     }
 }
