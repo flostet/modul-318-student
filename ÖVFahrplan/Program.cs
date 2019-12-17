@@ -14,16 +14,9 @@ namespace ÖVFahrplan
         [STAThread]
         static void Main()
         {
-            try
-            {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new Form1());
-            }
-            catch
-            {
-                MessageBox.Show("Starten sie das Programm neu", "Ein Problem ist aufgetreten!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
     }
 }

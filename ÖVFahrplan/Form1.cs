@@ -33,151 +33,236 @@ namespace ÖVFahrplan
         {
             txtTime.Text = DateTime.Now.ToString("HH:mm");
             txtDeparture.Focus();
+            radioBtnConnectionsPlan.Checked = true;
         }
 
         private void btnSearchConnection_Click(object sender, EventArgs e)
         {
-            listView1.Items.Clear();
+            listDeparture.Visible = false;
+            listDestination.Visible = false;
 
-            if (txtDeparture.Text == String.Empty || txtDestination.Text == String.Empty || txtTime.Text == String.Empty)
-            {
-                MessageBox.Show("Bitte korrekte Daten eingeben.");
-            }
-            else
-            {
-                transport = new Transport();
-                connections = transport.GetConnections(txtDeparture.Text, txtDestination.Text, datePicker.Text, txtTime.Text);
-                verbindungen = transport.GetStationBoard(txtDeparture.Text, "");
-
-                for (int i = 0; i < connections.ConnectionList.Count; i++)
-                {
-                    ListViewItem item1 = new ListViewItem();
-
-                    item1.Text = txtDeparture.Text;
-                    item1.SubItems.Add(txtDestination.Text);
-
-
-                    string depatureTime = connections.ConnectionList[i].From.Departure.Remove(0, 11).Remove(5, 8) +
-                                          " - " + connections.ConnectionList[i].To.Arrival.Remove(0, 11).Remove(5, 8);
-                    item1.SubItems.Add(depatureTime);
-
-                    string trainNumber = verbindungen.Entries[1].Category + " " + verbindungen.Entries[i].Number;
-                    item1.SubItems.Add(trainNumber);
-
-                    string duration = connections.ConnectionList[i].Duration.Remove(0, 3).Remove(5, 3) + " min";
-                    item1.SubItems.Add(duration);
-
-                    listView1.Items.Add(item1);
-                }
-            } 
-        }
-
-        // Bei jeder Änderung im Textfeld wird die Liste mit den Station frisch geladen und 
-        // Stationsvorschläge werden in der ComboBox angezeigt (Auto Complete)
-        private void txtDestination_TextChanged(object sender, EventArgs e)
-        {
             try
             {
-                transport = new Transport();
-                txtDestination.DroppedDown = true;
-                Cursor.Current = Cursors.Default;
+                listView1.Items.Clear();
 
-                for (int i = txtDestination.Items.Count - 1; i >= 0; i--)
-                    txtDestination.Items.RemoveAt(i);
-
-                int count = 0;
-                var stations = transport.GetStations(txtDestination.Text).StationList;
-                for (int i = 0; i < stations.Count; i++)
+                if (radioBtnConnectionsPlan.Checked)
                 {
-                    txtDestination.Items.Add(stations[i].Name);
-                    count++;
-                }
+                    if (txtDeparture.Text == String.Empty || txtDestination.Text == String.Empty || txtTime.Text == String.Empty)
+                    {
+                        MessageBox.Show("Bitte korrekte Daten eingeben.");
+                    }
+                    else
+                    {
+                        transport = new Transport();
+                        connections = transport.GetConnections(txtDeparture.Text, txtDestination.Text, datePicker.Text, txtTime.Text);
+                        verbindungen = transport.GetStationBoard(txtDeparture.Text, "");
 
-                int p = txtDestination.Items.Count - count;
+                        for (int i = 0; i < connections.ConnectionList.Count; i++)
+                        {
+                            ListViewItem item1 = new ListViewItem();
+
+                            item1.Text = txtDeparture.Text;
+                            item1.SubItems.Add(txtDestination.Text);
+
+
+                            string depatureTime = connections.ConnectionList[i].From.Departure.Remove(0, 11).Remove(5, 8) +
+                                                  " - " + connections.ConnectionList[i].To.Arrival.Remove(0, 11).Remove(5, 8);
+                            item1.SubItems.Add(depatureTime);
+
+                            string trainNumber = verbindungen.Entries[1].Category + " " + verbindungen.Entries[i].Number;
+                            item1.SubItems.Add(trainNumber);
+
+                            string duration = connections.ConnectionList[i].Duration.Remove(0, 3).Remove(5, 3) + " min";
+                            item1.SubItems.Add(duration);
+
+                            listView1.Items.Add(item1);
+                        }
+                    }
+                }
+                else if (radioBtnDeparturePlan.Checked)
+                {
+                    transport = new Transport();
+
+                    verbindungen = transport.GetStationBoard(txtDeparture.Text, "");
+
+                    for (int i = 0; i < 5; i++)
+                    {
+                        ListViewItem item = new ListViewItem();
+
+                        item.Text = txtDeparture.Text;
+
+                        string ToStation = verbindungen.Entries[i].To;
+                        item.SubItems.Add(ToStation);
+
+                        string connectionTime = verbindungen.Entries[i].Stop.Departure.TimeOfDay.ToString();
+                        item.SubItems.Add(connectionTime);
+
+                        string trainNumber = verbindungen.Entries[i].Category + " " + verbindungen.Entries[i].Number;
+                        item.SubItems.Add(trainNumber);
+
+                        listView1.Items.Add(item);
+                    }
+                }
             }
             catch
             {
-                
+                MessageBox.Show("Es wurden keine Verbindungen gefunden\nVersuchen Sie es noch einmal!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        // Bei jeder Änderung im Textfeld wird die Liste mit den Station frisch geladen und 
-        // Stationsvorschläge werden in der ComboBox angezeigt (Auto Complete)
         private void txtDeparture_TextChanged(object sender, EventArgs e)
         {
-            try
+            transport = new Transport();
+            listDeparture.Visible = true;
+
+            var stations = transport.GetStations(txtDeparture.Text).StationList;
+
+            listDeparture.Items.Clear();
+
+            for (int i = 0; i < (stations.Count - 1); i++)
             {
-                transport = new Transport();
-
-                txtDeparture.DroppedDown = true;
-                Cursor.Current = Cursors.Default;
-
-                for (int i = txtDeparture.Items.Count - 1; i >= 0; i--)
-                    txtDeparture.Items.RemoveAt(i);
-
-                var stations = transport.GetStations(txtDeparture.Text).StationList;
-                for (int i = 0; i < stations.Count; i++)
+                try
                 {
-                    txtDeparture.Items.Add(stations[i].Name);
+                    listDeparture.Items.Add(stations[i].Name);
                 }
-            }
-            catch
-            {
-               
-            }
-            
-        }
-
-        private void cbStation_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                transport = new Transport();
-
-                cbStation.DroppedDown = true;
-                Cursor.Current = Cursors.Default;
-
-                for (int i = cbStation.Items.Count - 1; i >= 0; i--)
-                    cbStation.Items.RemoveAt(i);
-
-                var stations = transport.GetStations(cbStation.Text).StationList;
-                for (int i = 0; i < stations.Count; i++)
+                catch
                 {
-                    cbStation.Items.Add(stations[i].Name);
+                    
                 }
-            }
-            catch
-            {
-                
             }
         }
 
-        private void btnShowConnections_Click(object sender, EventArgs e)
+        private void txtDestination_TextChanged(object sender, EventArgs e)
         {
             transport = new Transport();
-            verbindungen = transport.GetStationBoard(cbStation.Text, "");
-            for (int i = 0; i < 5; i++)
+            listDestination.Visible = true;
+
+            var stations = transport.GetStations(txtDestination.Text).StationList;
+
+            listDestination.Items.Clear();
+
+            for (int i = 0; i < (stations.Count - 1); i++)
             {
-                ListViewItem item = new ListViewItem();
+                try
+                {
+                    listDestination.Items.Add(stations[i].Name);
+                }
+                catch
+                {
 
-                item.Text = cbStation.Text;
-
-                string destination = verbindungen.Entries[i].To;
-                item.SubItems.Add(destination);
-
-                string departureTime = verbindungen.Entries[i].Stop.Departure.TimeOfDay + "";
-                item.SubItems.Add(departureTime);
-
-                string trainNumber = verbindungen.Entries[i].Category + " " + verbindungen.Entries[i].Number;
-                item.SubItems.Add(trainNumber);
-
-                listView1.Items.Add(item);
+                }
             }
         }
 
-        private void tabPage1_Enter(object sender, EventArgs e)
+        private void listDeparture_DoubleClick(object sender, EventArgs e)
         {
-            columnHeader5.Width = 0;
+            txtDeparture.Text = listDeparture.SelectedItem.ToString();
+            listDeparture.Visible = false;
+        }
+
+        private void listDestination_DoubleClick(object sender, EventArgs e)
+        {
+            txtDestination.Text = listDestination.SelectedItem.ToString();
+            listDestination.Visible = false;
+        }
+
+        private void txtDeparture_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Down)
+            {
+                listDeparture.SelectedIndex = 0;
+                listDeparture.Focus();
+            }
+        }
+
+        private void txtDestination_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Down)
+            {
+                listDestination.SelectedIndex = 0;
+                listDestination.Focus();
+            }
+        }
+
+        private void listDeparture_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtDeparture.Text = listDeparture.Text;
+                listDeparture.Visible = false;
+            }
+        }
+
+        private void listDestination_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtDestination.Text = listDestination.Text;
+                listDestination.Visible = false;
+            }
+        }
+
+        private void radioBtnConnectionsPlan_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioBtnConnectionsPlan.Checked)
+            {
+                txtDestination.Enabled = true;
+                btnSearchConnection.Text = "Verbindung suchen";
+                txtTime.Enabled = true;
+                datePicker.Enabled = true;
+
+                listView1.Items.Clear();
+                listView1.Columns.Clear();
+                listView1.Columns.Add("Von", 100);
+                listView1.Columns.Add("Nach", 100);
+                listView1.Columns.Add("Zeit", 110);
+                listView1.Columns.Add("Zug/Bus Nr", 100);
+                listView1.Columns.Add("Dauer", 60);
+
+            }
+            else if (radioBtnDeparturePlan.Checked)
+            {
+                txtDestination.Enabled = false;
+                btnSearchConnection.Text = "Abfahrt suchen";
+                txtTime.Enabled = false;
+                datePicker.Enabled = false;
+
+                listView1.Items.Clear();
+                listView1.Columns.Clear();
+                listView1.Columns.Add("Von", 100);
+                listView1.Columns.Add("Nach", 100);
+                listView1.Columns.Add("Zeit", 110);
+                listView1.Columns.Add("Zug/Bus Nr.", 100);
+            }
+        }
+
+        // Wenn auf ein Element in der ListBox(listDeparture) auf eine Zeile geklickt wird, erscheint es in der TextBox(txtDeparture)
+        private void listDeparture_Click(object sender, EventArgs e)
+        {
+            txtDeparture.Text = listDeparture.Text;
+            listDeparture.Visible = false;
+        }
+
+        private void listDestination_Click(object sender, EventArgs e)
+        {
+            txtDestination.Text = listDestination.Text;
+            listDestination.Visible = false;
+        }
+
+        private void groupBox1_Click(object sender, EventArgs e)
+        {
+            listDeparture.Visible = false;
+            listDestination.Visible = false;
+        }
+
+        private void btnSendMail_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnSendMail.Enabled = true;
         }
     }
 }
