@@ -201,6 +201,7 @@
             this.txtDestination.Name = "txtDestination";
             this.txtDestination.Size = new System.Drawing.Size(172, 20);
             this.txtDestination.TabIndex = 1;
+            this.txtDestination.Click += new System.EventHandler(this.txtDestination_Click);
             this.txtDestination.TextChanged += new System.EventHandler(this.txtDestination_TextChanged);
             this.txtDestination.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDestination_KeyDown);
             // 
@@ -210,6 +211,7 @@
             this.txtDeparture.Name = "txtDeparture";
             this.txtDeparture.Size = new System.Drawing.Size(172, 20);
             this.txtDeparture.TabIndex = 0;
+            this.txtDeparture.Click += new System.EventHandler(this.txtDeparture_Click);
             this.txtDeparture.TextChanged += new System.EventHandler(this.txtDeparture_TextChanged);
             this.txtDeparture.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDeparture_KeyDown);
             // 

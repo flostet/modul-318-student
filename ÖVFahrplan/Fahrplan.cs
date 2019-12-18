@@ -375,5 +375,17 @@ namespace ÖVFahrplan
                 MessageBox.Show("Koordinaten der Station nicht gefunden", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        // Wenn man in die TextBox klickt, verschwindet die ListBox für den Zielort
+        private void txtDeparture_Click(object sender, EventArgs e)
+        {
+            listDestination.Visible = false;
+        }
+
+        // Wenn man in die TextBox klickt, verschwindet die ListBox für den Startort
+        private void txtDestination_Click(object sender, EventArgs e)
+        {
+            listDeparture.Visible = false;
+        }
     }
 }
