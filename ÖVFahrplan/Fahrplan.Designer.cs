@@ -55,7 +55,7 @@
             // 
             // btnSearchConnection
             // 
-            this.btnSearchConnection.Location = new System.Drawing.Point(278, 127);
+            this.btnSearchConnection.Location = new System.Drawing.Point(381, 127);
             this.btnSearchConnection.Name = "btnSearchConnection";
             this.btnSearchConnection.Size = new System.Drawing.Size(122, 39);
             this.btnSearchConnection.TabIndex = 5;
@@ -93,7 +93,7 @@
             // lblDestination
             // 
             this.lblDestination.AutoSize = true;
-            this.lblDestination.Location = new System.Drawing.Point(225, 25);
+            this.lblDestination.Location = new System.Drawing.Point(298, 25);
             this.lblDestination.Name = "lblDestination";
             this.lblDestination.Size = new System.Drawing.Size(36, 13);
             this.lblDestination.TabIndex = 5;
@@ -112,7 +112,7 @@
             // 
             this.txtTime.Location = new System.Drawing.Point(147, 109);
             this.txtTime.Name = "txtTime";
-            this.txtTime.Size = new System.Drawing.Size(100, 20);
+            this.txtTime.Size = new System.Drawing.Size(59, 20);
             this.txtTime.TabIndex = 4;
             // 
             // btnClose
@@ -151,9 +151,9 @@
             // listDestination
             // 
             this.listDestination.FormattingEnabled = true;
-            this.listDestination.Location = new System.Drawing.Point(228, 61);
+            this.listDestination.Location = new System.Drawing.Point(301, 61);
             this.listDestination.Name = "listDestination";
-            this.listDestination.Size = new System.Drawing.Size(172, 82);
+            this.listDestination.Size = new System.Drawing.Size(202, 82);
             this.listDestination.TabIndex = 19;
             this.listDestination.Visible = false;
             this.listDestination.Click += new System.EventHandler(this.listDestination_Click);
@@ -188,7 +188,7 @@
             this.listDeparture.FormattingEnabled = true;
             this.listDeparture.Location = new System.Drawing.Point(14, 61);
             this.listDeparture.Name = "listDeparture";
-            this.listDeparture.Size = new System.Drawing.Size(172, 82);
+            this.listDeparture.Size = new System.Drawing.Size(203, 82);
             this.listDeparture.TabIndex = 18;
             this.listDeparture.Visible = false;
             this.listDeparture.Click += new System.EventHandler(this.listDeparture_Click);
@@ -197,9 +197,9 @@
             // 
             // txtDestination
             // 
-            this.txtDestination.Location = new System.Drawing.Point(228, 43);
+            this.txtDestination.Location = new System.Drawing.Point(301, 42);
             this.txtDestination.Name = "txtDestination";
-            this.txtDestination.Size = new System.Drawing.Size(172, 20);
+            this.txtDestination.Size = new System.Drawing.Size(202, 20);
             this.txtDestination.TabIndex = 1;
             this.txtDestination.Click += new System.EventHandler(this.txtDestination_Click);
             this.txtDestination.TextChanged += new System.EventHandler(this.txtDestination_TextChanged);
@@ -209,7 +209,7 @@
             // 
             this.txtDeparture.Location = new System.Drawing.Point(14, 42);
             this.txtDeparture.Name = "txtDeparture";
-            this.txtDeparture.Size = new System.Drawing.Size(172, 20);
+            this.txtDeparture.Size = new System.Drawing.Size(203, 20);
             this.txtDeparture.TabIndex = 0;
             this.txtDeparture.Click += new System.EventHandler(this.txtDeparture_Click);
             this.txtDeparture.TextChanged += new System.EventHandler(this.txtDeparture_TextChanged);
