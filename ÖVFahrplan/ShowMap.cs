@@ -21,17 +21,20 @@ namespace ÖVFahrplan
             InitializeComponent();
         }
 
+        // Standardort und Koordinaten sind Luzern Bahnhof
         // Double Variablen um die Koordinaten aus dem Hauptformular an dieses Form zu übergeben.
         public double yCoordinate = 8.3093072;
         public double xCoordinate = 47.0501682;
+        // Speichert den Namen der Station um es in der TextBox(txtStation) anzuzeigen
         public string CityName = "Luzern";
 
-
+        // Ruft eine Methode an um die Station auf der Karte anzuzeigen
         private void btnShowOnMap_Click(object sender, EventArgs e)
         {
             ShowStationOnMapName();
         }
 
+        // Beim Laden des Formulars wird die Methode um eine Station auf der Karte anzuzeigen aufgerufen
         private void ShowMap_Load(object sender, EventArgs e)
         {
             mapControlStations.ShowCenter = false;
@@ -42,40 +45,52 @@ namespace ÖVFahrplan
             }
         }
 
+        // Ist für AutoCompletion. Bei jeder Textänderung in TextBox(txtStation) wird die Liste frisch in die
+        // ListBox (listStations) geschrieben.
         private void txtStation_TextChanged(object sender, EventArgs e)
         {
-            Transport transport = new Transport();
-            listStations.Visible = true;
-
-            var stations = transport.GetStations(txtStation.Text).StationList;
-
-            listStations.Items.Clear();
-
-            for (int i = 0; i < (stations.Count - 1); i++)
+            try
             {
-                try
-                {
-                    listStations.Items.Add(stations[i].Name);
-                }
-                catch
-                {
+                Transport transport = new Transport();
+                listStations.Visible = true;
 
+                var stations = transport.GetStations(txtStation.Text).StationList;
+
+                listStations.Items.Clear();
+
+                for (int i = 0; i < (stations.Count - 1); i++)
+                {
+                    try
+                    {
+                        listStations.Items.Add(stations[i].Name);
+                    }
+                    catch
+                    {
+
+                    }
                 }
+            }
+            catch
+            {
             }
         }
 
+        // Bei Doppelklick in ListBox(listStations) wird selektiertes Element in TextBox(txtStation) geschrieben.
         private void listStations_DoubleClick(object sender, EventArgs e)
         {
             txtStation.Text = listStations.Text;
             listStations.Visible = false;
         }
 
+        // Ausgewähltes Element in ListBox(listStations) wird in TextBox(txtStation) geschrieben
         private void listStations_Click(object sender, EventArgs e)
         {
             txtStation.Text = listStations.Text;
             listStations.Visible = false;
         }
 
+        // Sobald Arrow Key nach unten in TextBox(txtStation) gedrückt wird, springt Focus auf ListBox(listStations) und
+        // erstes Element darin wird selektiert.
         private void txtStation_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Down)
@@ -85,6 +100,7 @@ namespace ÖVFahrplan
             }
         }
 
+        // Wenn Enter Key in ListBox(listStations) gedrückt wird, wird ausgewählter Text in TextBox(txtStation) geschrieben und ListBox ausgeblendet.
         private void listStations_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -95,43 +111,59 @@ namespace ÖVFahrplan
             }
         }
 
-        // Zeigt den gewünschten Ort auf der Karte an. Um die Karte anzuzeigen wurde ein MapControll verwendet,
-        // dass ich mit dem NuGet-Paket GMapControl hinzugefügt habe.
+        // Zeigt den gewünschten Ort auf der Karte an. Um die Karte anzuzeigen wurde ein MapControl verwendet,
+        // dass ich mit dem NuGet-Paket GMapControl hinzugefügt habe. Dafür wird der Name der Station verwendet
         private void ShowStationOnMapName()
         {
-            Transport transport = new Transport();
-            string station = txtStation.Text;
+            try
+            {
+                Transport transport = new Transport();
+                string station = txtStation.Text;
 
-            Stations stations;
+                Stations stations;
 
-            stations = transport.GetStations(station);
+                stations = transport.GetStations(station);
 
-            mapControlStations.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
-            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
+                mapControlStations.MapProvider = GoogleMapProvider.Instance;
+                GMaps.Instance.Mode = AccessMode.ServerOnly;
 
-            mapControlStations.Position = new PointLatLng(stations.StationList.First().Coordinate.XCoordinate, stations.StationList.First().Coordinate.YCoordinate);
-            mapControlStations.MinZoom = 2;
-            mapControlStations.MaxZoom = 18;
-            mapControlStations.Zoom = 17;
-            mapControlStations.CanDragMap = true;
-            mapControlStations.ShowCenter = false;
-            mapControlStations.DragButton = MouseButtons.Left;
+                mapControlStations.Position = new PointLatLng(stations.StationList.First().Coordinate.XCoordinate, stations.StationList.First().Coordinate.YCoordinate);
+                mapControlStations.MinZoom = 2;
+                mapControlStations.MaxZoom = 18;
+                mapControlStations.Zoom = 17;
+                mapControlStations.CanDragMap = true;
+                mapControlStations.ShowCenter = false;
+                mapControlStations.DragButton = MouseButtons.Left;
+            }
+            catch
+            {
+                MessageBox.Show("Station kann nicht auf Karte angezeigt werden.");
+            }
         }
 
+        // Zeigt den gewünschten Ort auf der Karte an. Um die Karte anzuzeigen wurde ein MapControl verwendet,
+        // dass ich mit dem NuGet-Paket GMapControl hinzugefügt habe. Dafür werden die Koordinaten der Station verwendet
         private void showStationOnMapCoordinates()
         {
-            mapControlStations.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
-            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
+            try
+            {
+                mapControlStations.MapProvider = GoogleMapProvider.Instance;
+                GMaps.Instance.Mode = AccessMode.ServerOnly;
 
-            mapControlStations.Position = new PointLatLng(xCoordinate, yCoordinate);
-            mapControlStations.MinZoom = 2;
-            mapControlStations.MaxZoom = 18;
-            mapControlStations.Zoom = 17;
-            mapControlStations.CanDragMap = true;
-            mapControlStations.ShowCenter = false;
-            mapControlStations.DragButton = MouseButtons.Left;
-            txtStation.Text = CityName;
-            listStations.Visible = false;
+                mapControlStations.Position = new PointLatLng(xCoordinate, yCoordinate);
+                mapControlStations.MinZoom = 2;
+                mapControlStations.MaxZoom = 18;
+                mapControlStations.Zoom = 17;
+                mapControlStations.CanDragMap = true;
+                mapControlStations.ShowCenter = false;
+                mapControlStations.DragButton = MouseButtons.Left;
+                txtStation.Text = CityName;
+                listStations.Visible = false;
+            }
+            catch
+            {
+                MessageBox.Show("Station kann nicht auf Karte angezeigt werden.");
+            }
         }
     }
 }

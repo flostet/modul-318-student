@@ -117,23 +117,29 @@ namespace ÖVFahrplan
         // ListBox (listDeparture) geschrieben.
         private void txtDeparture_TextChanged(object sender, EventArgs e)
         {
-            transport = new Transport();
-            listDeparture.Visible = true;
-
-            var stations = transport.GetStations(txtDeparture.Text).StationList;
-
-            listDeparture.Items.Clear();
-
-            for (int i = 0; i < (stations.Count - 1); i++)
+            try
             {
-                try
+                transport = new Transport();
+                listDeparture.Visible = true;
+
+                var stations = transport.GetStations(txtDeparture.Text).StationList;
+
+                listDeparture.Items.Clear();
+
+                for (int i = 0; i < (stations.Count - 1); i++)
                 {
-                    listDeparture.Items.Add(stations[i].Name);
-                }
-                catch
-                {
+                    try
+                    {
+                        listDeparture.Items.Add(stations[i].Name);
+                    }
+                    catch
+                    {
                     
+                    }
                 }
+            }
+            catch
+            {
             }
         }
 
@@ -141,23 +147,29 @@ namespace ÖVFahrplan
         // ListBox (listDestination) geschrieben.
         private void txtDestination_TextChanged(object sender, EventArgs e)
         {
-            transport = new Transport();
-            listDestination.Visible = true;
-
-            var stations = transport.GetStations(txtDestination.Text).StationList;
-
-            listDestination.Items.Clear();
-
-            for (int i = 0; i < (stations.Count - 1); i++)
+            try
             {
-                try
-                {
-                    listDestination.Items.Add(stations[i].Name);
-                }
-                catch
-                {
+                transport = new Transport();
+                listDestination.Visible = true;
 
+                var stations = transport.GetStations(txtDestination.Text).StationList;
+
+                listDestination.Items.Clear();
+
+                for (int i = 0; i < (stations.Count - 1); i++)
+                {
+                    try
+                    {
+                        listDestination.Items.Add(stations[i].Name);
+                    }
+                    catch
+                    {
+
+                    }
                 }
+            }
+            catch
+            {
             }
         }
 
@@ -221,35 +233,43 @@ namespace ÖVFahrplan
         // der ListView geändert.
         private void radioBtnConnectionsPlan_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioBtnConnectionsPlan.Checked)
+            try
             {
-                txtDestination.Enabled = true;
-                btnSearchConnection.Text = "Verbindung suchen";
-                txtTime.Enabled = true;
-                datePicker.Enabled = true;
+                if (radioBtnConnectionsPlan.Checked)
+                {
+                    txtDestination.Enabled = true;
+                    btnSearchConnection.Text = "Verbindung suchen";
+                    txtTime.Enabled = true;
+                    datePicker.Enabled = true;
 
-                listViewConnections.Items.Clear();
-                listViewConnections.Columns.Clear();
-                listViewConnections.Columns.Add("Von", 100);
-                listViewConnections.Columns.Add("Nach", 100);
-                listViewConnections.Columns.Add("Zeit", 110);
-                listViewConnections.Columns.Add("Zug/Bus Nr", 100);
-                listViewConnections.Columns.Add("Dauer", 60);
+                    listViewConnections.Items.Clear();
+                    listViewConnections.Columns.Clear();
+                    listViewConnections.Columns.Add("Von", 100);
+                    listViewConnections.Columns.Add("Nach", 100);
+                    listViewConnections.Columns.Add("Zeit", 110);
+                    listViewConnections.Columns.Add("Zug/Bus Nr", 100);
+                    listViewConnections.Columns.Add("Dauer", 60);
 
+                }
+                else if (radioBtnDeparturePlan.Checked)
+                {
+                    txtDestination.Enabled = false;
+                    btnSearchConnection.Text = "Abfahrt suchen";
+                    txtTime.Enabled = false;
+                    datePicker.Enabled = false;
+
+                    listViewConnections.Items.Clear();
+                    listViewConnections.Columns.Clear();
+                    listViewConnections.Columns.Add("Von", 100);
+                    listViewConnections.Columns.Add("Nach", 100);
+                    listViewConnections.Columns.Add("Zeit", 110);
+                    listViewConnections.Columns.Add("Zug/Bus Nr.", 100);
+                }
             }
-            else if (radioBtnDeparturePlan.Checked)
+            catch
             {
-                txtDestination.Enabled = false;
-                btnSearchConnection.Text = "Abfahrt suchen";
-                txtTime.Enabled = false;
-                datePicker.Enabled = false;
-
-                listViewConnections.Items.Clear();
-                listViewConnections.Columns.Clear();
-                listViewConnections.Columns.Add("Von", 100);
-                listViewConnections.Columns.Add("Nach", 100);
-                listViewConnections.Columns.Add("Zeit", 110);
-                listViewConnections.Columns.Add("Zug/Bus Nr.", 100);
+                MessageBox.Show("Es konnten nicht alle Daten geladen werden.\nStarten sie das Programm neu", "Information",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -286,18 +306,25 @@ namespace ÖVFahrplan
         // Wenn das der Fall ist, wird ein ContextMenu(contextmenuShowMap) 
         private void listViewConnections_MouseClick(object sender, MouseEventArgs e)
         {
-            contextMenuShowMap.Items.Clear();
-            if (e.Button == MouseButtons.Right)
+            try
             {
-                ToolStripMenuItem menuItemStart = new ToolStripMenuItem("Startort auf Karte anzeigen");
-                ToolStripMenuItem menuItemEnd = new ToolStripMenuItem("Zielort auf Karte anzeigen");
+                contextMenuShowMap.Items.Clear();
+                if (e.Button == MouseButtons.Right)
+                {
+                    ToolStripMenuItem menuItemStart = new ToolStripMenuItem("Startort auf Karte anzeigen");
+                    ToolStripMenuItem menuItemEnd = new ToolStripMenuItem("Zielort auf Karte anzeigen");
 
-                menuItemStart.Click += new EventHandler(menuItemStart_Click);
-                menuItemEnd.Click += new EventHandler(menuItemEnd_Click);
+                    menuItemStart.Click += new EventHandler(menuItemStart_Click);
+                    menuItemEnd.Click += new EventHandler(menuItemEnd_Click);
 
-                contextMenuShowMap.Items.AddRange(new ToolStripItem[]{ menuItemStart, menuItemEnd });
+                    contextMenuShowMap.Items.AddRange(new ToolStripItem[]{ menuItemStart, menuItemEnd });
 
-                contextMenuShowMap.Show(Cursor.Position);
+                    contextMenuShowMap.Show(Cursor.Position);
+                }
+            }
+            catch
+            {
+
             }
         }
 
@@ -305,34 +332,48 @@ namespace ÖVFahrplan
         // ausgewählten Verbindung.
         private void menuItemStart_Click(object sender, EventArgs e)
         {
-            transport = new Transport();
+            try
+            {
+                transport = new Transport();
 
-            stations = transport.GetStations(listViewConnections.FocusedItem.Text);
+                stations = transport.GetStations(listViewConnections.FocusedItem.Text);
             
-            ShowMap map = new ShowMap();
+                ShowMap map = new ShowMap();
 
-            map.xCoordinate = stations.StationList.First().Coordinate.XCoordinate;
-            map.yCoordinate = stations.StationList.First().Coordinate.YCoordinate;
-            map.CityName = listViewConnections.FocusedItem.Text;
+                map.xCoordinate = stations.StationList.First().Coordinate.XCoordinate;
+                map.yCoordinate = stations.StationList.First().Coordinate.YCoordinate;
+                map.CityName = listViewConnections.FocusedItem.Text;
 
-            map.Show();
+                map.Show();
+            }
+            catch
+            {
+                MessageBox.Show("Koordinaten der Station nicht gefunden", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         // EventHandler für ContextMenu Item. Holt die Koordinaten des Zielortes der in der ListView
         // ausgewählten Verbindung.
         private void menuItemEnd_Click(object sender, EventArgs e)
         {
-            transport = new Transport();
+            try
+            {
+                transport = new Transport();
 
-            stations = transport.GetStations(listViewConnections.SelectedItems[0].SubItems[1].Text);
+                stations = transport.GetStations(listViewConnections.SelectedItems[0].SubItems[1].Text);
 
-            ShowMap map = new ShowMap();
+                ShowMap map = new ShowMap();
 
-            map.xCoordinate = stations.StationList.First().Coordinate.XCoordinate;
-            map.yCoordinate = stations.StationList.First().Coordinate.YCoordinate;
-            map.CityName = listViewConnections.SelectedItems[0].SubItems[1].Text;
+                map.xCoordinate = stations.StationList.First().Coordinate.XCoordinate;
+                map.yCoordinate = stations.StationList.First().Coordinate.YCoordinate;
+                map.CityName = listViewConnections.SelectedItems[0].SubItems[1].Text;
 
-            map.Show();
+                map.Show();
+            }
+            catch
+            {
+                MessageBox.Show("Koordinaten der Station nicht gefunden", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
