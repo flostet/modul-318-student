@@ -39,10 +39,7 @@ namespace ÖVFahrplan
         {
             mapControlStations.ShowCenter = false;
 
-            if (xCoordinate != null || yCoordinate != null)
-            {
                 showStationOnMapCoordinates();
-            }
         }
 
         // Ist für AutoCompletion. Bei jeder Textänderung in TextBox(txtStation) wird die Liste frisch in die
@@ -62,6 +59,7 @@ namespace ÖVFahrplan
                 {
                     try
                     {
+                        // Stationsvorschläge werden der ListBox hinzugefügt
                         listStations.Items.Add(stations[i].Name);
                     }
                     catch
@@ -127,13 +125,22 @@ namespace ÖVFahrplan
                 mapControlStations.MapProvider = GoogleMapProvider.Instance;
                 GMaps.Instance.Mode = AccessMode.ServerOnly;
 
-                mapControlStations.Position = new PointLatLng(stations.StationList.First().Coordinate.XCoordinate, stations.StationList.First().Coordinate.YCoordinate);
-                mapControlStations.MinZoom = 2;
-                mapControlStations.MaxZoom = 18;
-                mapControlStations.Zoom = 17;
-                mapControlStations.CanDragMap = true;
-                mapControlStations.ShowCenter = false;
-                mapControlStations.DragButton = MouseButtons.Left;
+                // Überprüfen ob leere Koordinaten übergeben wurden
+                if (stations.StationList.First().Coordinate.XCoordinate != 0)
+                {
+                    // Koordinaten dem mapControl übergeben
+                    mapControlStations.Position = new PointLatLng(stations.StationList.First().Coordinate.XCoordinate, stations.StationList.First().Coordinate.YCoordinate);
+                    mapControlStations.MinZoom = 2;
+                    mapControlStations.MaxZoom = 18;
+                    mapControlStations.Zoom = 17;
+                    mapControlStations.CanDragMap = true;
+                    mapControlStations.ShowCenter = false;
+                    mapControlStations.DragButton = MouseButtons.Left;
+                }
+                else
+                {
+                    MessageBox.Show("Station kann nicht auf Karte angezeigt werden");
+                }
             }
             catch
             {
@@ -149,16 +156,23 @@ namespace ÖVFahrplan
             {
                 mapControlStations.MapProvider = GoogleMapProvider.Instance;
                 GMaps.Instance.Mode = AccessMode.ServerOnly;
-
-                mapControlStations.Position = new PointLatLng(xCoordinate, yCoordinate);
-                mapControlStations.MinZoom = 2;
-                mapControlStations.MaxZoom = 18;
-                mapControlStations.Zoom = 17;
-                mapControlStations.CanDragMap = true;
-                mapControlStations.ShowCenter = false;
-                mapControlStations.DragButton = MouseButtons.Left;
-                txtStation.Text = CityName;
-                listStations.Visible = false;
+                // Überprüfen, ob leere Koordinaten übergeben wurden
+                if (xCoordinate != 0)
+                {
+                    mapControlStations.Position = new PointLatLng(xCoordinate, yCoordinate);
+                    mapControlStations.MinZoom = 2;
+                    mapControlStations.MaxZoom = 18;
+                    mapControlStations.Zoom = 17;
+                    mapControlStations.CanDragMap = true;
+                    mapControlStations.ShowCenter = false;
+                    mapControlStations.DragButton = MouseButtons.Left;
+                    txtStation.Text = CityName;
+                    listStations.Visible = false;
+                }
+                else
+                {
+                    MessageBox.Show("Station kann nicht auf Karte angezeigt werden.");
+                }
             }
             catch
             {

@@ -56,29 +56,39 @@ namespace ÖVFahrplan
                     }
                     else
                     {
-                        transport = new Transport();
-                        connections = transport.GetConnections(txtDeparture.Text, txtDestination.Text, datePicker.Text, txtTime.Text);
-                        verbindungen = transport.GetStationBoard(txtDeparture.Text, "");
-
-                        for (int i = 0; i < connections.ConnectionList.Count; i++)
+                        if (txtTime.TextLength == 5)
                         {
-                            ListViewItem connectionsListItem = new ListViewItem();
+                            transport = new Transport();
+                            // Verbindungen werden gesucht
+                            connections = transport.GetConnections(txtDeparture.Text, txtDestination.Text, datePicker.Text, txtTime.Text);
+                            verbindungen = transport.GetStationBoard(txtDeparture.Text, "");
 
-                            connectionsListItem.Text = txtDeparture.Text;
-                            connectionsListItem.SubItems.Add(txtDestination.Text);
+                            for (int i = 0; i < connections.ConnectionList.Count; i++)
+                            {
+                                ListViewItem connectionsListItem = new ListViewItem();
+
+                                connectionsListItem.Text = txtDeparture.Text;
+                                connectionsListItem.SubItems.Add(txtDestination.Text);
 
 
-                            string depatureTime = connections.ConnectionList[i].From.Departure.Remove(0, 11).Remove(5, 8) +
-                                                  " - " + connections.ConnectionList[i].To.Arrival.Remove(0, 11).Remove(5, 8);
-                            connectionsListItem.SubItems.Add(depatureTime);
+                                string depatureTime = connections.ConnectionList[i].From.Departure.Remove(0, 11).Remove(5, 8) +
+                                                      " - " + connections.ConnectionList[i].To.Arrival.Remove(0, 11).Remove(5, 8);
+                                connectionsListItem.SubItems.Add(depatureTime);
 
-                            string trainNumber = verbindungen.Entries[1].Category + " " + verbindungen.Entries[i].Number;
-                            connectionsListItem.SubItems.Add(trainNumber);
+                                string trainNumber = verbindungen.Entries[1].Category + " " + verbindungen.Entries[i].Number;
+                                connectionsListItem.SubItems.Add(trainNumber);
 
-                            string duration = connections.ConnectionList[i].Duration.Remove(0, 3).Remove(5, 3) + " min";
-                            connectionsListItem.SubItems.Add(duration);
+                                string duration = connections.ConnectionList[i].Duration.Remove(0, 3).Remove(5, 3) + " min";
+                                connectionsListItem.SubItems.Add(duration);
 
-                            listViewConnections.Items.Add(connectionsListItem);
+                                // Verbindung wird der ListView hinzugefügt
+                                listViewConnections.Items.Add(connectionsListItem);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Bitte korrektes Format für die Uhrzeit eingeben.", "Information",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                 }
@@ -86,6 +96,7 @@ namespace ÖVFahrplan
                 {
                     transport = new Transport();
 
+                    //Verbindungen werden gesucht
                     verbindungen = transport.GetStationBoard(txtDeparture.Text, "");
 
                     for (int i = 0; i < 5; i++)
@@ -103,6 +114,7 @@ namespace ÖVFahrplan
                         string trainNumber = verbindungen.Entries[i].Category + " " + verbindungen.Entries[i].Number;
                         item.SubItems.Add(trainNumber);
 
+                        // Verbindungen werden der ListView hinzugefügt
                         listViewConnections.Items.Add(item);
                     }
                 }
@@ -130,6 +142,7 @@ namespace ÖVFahrplan
                 {
                     try
                     {
+                        // Stationsvorschläge werden in die ListBox geschrieben
                         listDeparture.Items.Add(stations[i].Name);
                     }
                     catch
@@ -140,6 +153,7 @@ namespace ÖVFahrplan
             }
             catch
             {
+                MessageBox.Show("Überprüfen Sie Ihre Internetverbindung", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -160,16 +174,18 @@ namespace ÖVFahrplan
                 {
                     try
                     {
+                        // Stationsvorschläge werden in die ListBox geschrieben
                         listDestination.Items.Add(stations[i].Name);
                     }
                     catch
                     {
-
+                        
                     }
                 }
             }
             catch
             {
+                MessageBox.Show("Überprüfen Sie Ihre Internetverbindung", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -178,6 +194,7 @@ namespace ÖVFahrplan
         {
             txtDeparture.Text = listDeparture.SelectedItem.ToString();
             listDeparture.Visible = false;
+            txtDestination.Focus();
         }
 
         // Bei Doppelklick in ListBox(listDestination) wird selektiertes Element in TextBox(txtDestination) geschrieben.
@@ -185,6 +202,7 @@ namespace ÖVFahrplan
         {
             txtDestination.Text = listDestination.SelectedItem.ToString();
             listDestination.Visible = false;
+            btnSearchConnection.Focus();
         }
 
         // Sobald Arrow Key nach unten in TextBox(txtDeparture) gedrückt wird, springt Focus auf ListBox(listDeparture) und
@@ -216,6 +234,7 @@ namespace ÖVFahrplan
             {
                 txtDeparture.Text = listDeparture.Text;
                 listDeparture.Visible = false;
+                txtDestination.Focus();
             }
         }
 
@@ -226,6 +245,7 @@ namespace ÖVFahrplan
             {
                 txtDestination.Text = listDestination.Text;
                 listDestination.Visible = false;
+                btnSearchConnection.Focus();
             }
         }
 
@@ -278,6 +298,7 @@ namespace ÖVFahrplan
         {
             txtDeparture.Text = listDeparture.Text;
             listDeparture.Visible = false;
+            txtDestination.Focus();
         }
 
         // Ausgewählter Text der ListBox(listDestination) wird in die TextBox(txtDestination) geschrieben
@@ -286,6 +307,7 @@ namespace ÖVFahrplan
         {
             txtDestination.Text = listDestination.Text;
             listDestination.Visible = false;
+            btnSearchConnection.Focus();
         }
 
         // Wenn in die GroupBox gecklickt wird, verschwinden die ListBoxen (listDeparture und listDestination)
@@ -293,6 +315,7 @@ namespace ÖVFahrplan
         {
             listDeparture.Visible = false;
             listDestination.Visible = false;
+            btnSearchConnection.Focus();
         }
 
         // Öffnet das zweite Formular(ShowMap) darin werden die Station auf der Karte angezeigt.
@@ -319,6 +342,7 @@ namespace ÖVFahrplan
 
                     contextMenuShowMap.Items.AddRange(new ToolStripItem[]{ menuItemStart, menuItemEnd });
 
+                    // Kontext Menü wird angezeigt
                     contextMenuShowMap.Show(Cursor.Position);
                 }
             }
@@ -340,6 +364,7 @@ namespace ÖVFahrplan
             
                 ShowMap map = new ShowMap();
 
+                // Koordinaten und Stationsname werden dem zweiten Form übergeben
                 map.xCoordinate = stations.StationList.First().Coordinate.XCoordinate;
                 map.yCoordinate = stations.StationList.First().Coordinate.YCoordinate;
                 map.CityName = listViewConnections.FocusedItem.Text;
@@ -364,6 +389,7 @@ namespace ÖVFahrplan
 
                 ShowMap map = new ShowMap();
 
+                // Koordinaten und Stationsname werden dem zweiten Formular übergeben
                 map.xCoordinate = stations.StationList.First().Coordinate.XCoordinate;
                 map.yCoordinate = stations.StationList.First().Coordinate.YCoordinate;
                 map.CityName = listViewConnections.SelectedItems[0].SubItems[1].Text;
