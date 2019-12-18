@@ -153,7 +153,7 @@ namespace ÖVFahrplan
             }
             catch
             {
-                MessageBox.Show("Überprüfen Sie Ihre Internetverbindung", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
             }
         }
 
@@ -185,7 +185,7 @@ namespace ÖVFahrplan
             }
             catch
             {
-                MessageBox.Show("Überprüfen Sie Ihre Internetverbindung", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
             }
         }
 
